@@ -1,0 +1,3 @@
+[submodule "agents-playground"]
+	path = agents-playground
+	url = git@github.com:hossein-khalilian/livekit-agents-playground.git
