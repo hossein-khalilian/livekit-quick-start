@@ -1,14 +1,6 @@
-from livekit.agents import (
-    Agent,
-    AgentSession,
-    JobContext,
-    WorkerOptions,
-    cli,
-)
-from livekit.plugins import deepgram, elevenlabs, openai, silero
-
-
 from dotenv import load_dotenv
+from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli
+from livekit.plugins import deepgram, elevenlabs, openai, silero
 
 load_dotenv()
 
