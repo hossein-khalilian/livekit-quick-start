@@ -2,13 +2,9 @@ import logging
 
 from dotenv import load_dotenv
 from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli
-from livekit.plugins import assemblyai, deepgram, openai, silero
+from livekit.plugins import openai, silero
 
-from my_plugins.local_stt import NemoStt
-
-# from my_plugins.nemo_plugin import NeMoSTT
-
-# from plugins.nemo_stt import NeMoSTT
+from custom_plugins.nemo_stt import NemoStt
 
 load_dotenv()
 
@@ -27,12 +23,14 @@ async def entrypoint(ctx: JobContext):
     agent = LoggingAgent(instructions="You are a transcription agent.")
 
     session = AgentSession(
-        vad=silero.VAD.load(),
-        # stt=deepgram.STT(model="nova-3", language="multi"),
-        # stt=openai.STT(model="gpt-4o-transcribe"),
-        # stt=assemblyai.STT(),
-        # stt=NeMoSTT(capabilities=None),
+        vad=silero.VAD.load(
+            max_buffered_speech=15,
+            min_silence_duration=0.3,
+            prefix_padding_duration=1,
+        ),
         stt=NemoStt(),
+        llm=openai.LLM(model="gpt-4o-mini"),
+        tts=openai.TTS(),
     )
 
     try:
