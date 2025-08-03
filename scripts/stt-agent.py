@@ -5,6 +5,7 @@ from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli
 from livekit.plugins import openai, silero
 
 from custom_plugins.nemo_stt import NemoStt
+from custom_plugins.sherpa_tts import TTS
 
 load_dotenv()
 
@@ -27,10 +28,13 @@ async def entrypoint(ctx: JobContext):
             max_buffered_speech=15,
             min_silence_duration=0.3,
             prefix_padding_duration=1,
+            # min_speech_duration=2,
+            activation_threshold=0.2,
         ),
         stt=NemoStt(),
         llm=openai.LLM(model="gpt-4o-mini"),
-        tts=openai.TTS(),
+        # tts=openai.TTS(),
+        tts=TTS(model="vits-piper-fa_IR-gyro-medium"),
     )
 
     try:
