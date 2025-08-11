@@ -1,6 +1,5 @@
 import io
 import logging
-import wave
 
 import requests
 import torch
@@ -8,7 +7,6 @@ import torchaudio
 from dotenv import load_dotenv
 from livekit.agents import stt, utils
 from livekit.agents.utils import AudioBuffer
-from pydub import AudioSegment
 
 load_dotenv(dotenv_path=".env.local")
 logger = logging.getLogger("voice-agent")
